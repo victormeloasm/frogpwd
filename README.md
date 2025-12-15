@@ -1,4 +1,5 @@
-# frogpwd 🐸🔐  
+# frogpwd 🐸🔐
+
 **Secure Password Generator in FASM (x86-64 Linux)**
 
 <p align="center">
@@ -13,51 +14,96 @@ It uses the Linux kernel entropy source via `getrandom()` and bias-free rejectio
 
 ## ✨ Features
 
-- Cryptographically secure randomness (`getrandom()`)
-- Bias-free character selection (rejection sampling)
-- Multiple character sets:
-  - Default (alphanumeric + symbols)
-  - `--nosym` (A–Z a–z 0–9)
-  - `--url` (URL-safe: A–Z a–z 0–9 `-` `_`)
-- Clipboard support:
-  - Wayland (`wl-copy`)
-  - X11 (`xclip`)
-- Options can be passed in **any order**
-- No external crypto libraries
-- No dynamic memory allocation
-- Single static ELF binary (~6.5 KB)
-- Written 100% in **x86-64 assembly (FASM)**
+* Cryptographically secure randomness (`getrandom()`)
+* Bias-free character selection (rejection sampling)
+* Multiple character sets:
+
+  * Default (alphanumeric + symbols)
+  * `--nosym` (A–Z a–z 0–9)
+  * `--url` (URL-safe: A–Z a–z 0–9 `-` `_`)
+* Clipboard support:
+
+  * Wayland (`wl-copy`)
+  * X11 (`xclip`)
+* Options can be passed in **any order**
+* No external crypto libraries
+* No dynamic memory allocation
+* Single static ELF binary (~6.5 KB)
+* Written 100% in **x86-64 assembly (FASM)**
 
 ---
 
 ## 📦 Download (Prebuilt Binary)
 
-Download the official prebuilt binary here:
+Download the official prebuilt release:
 
 👉 **Linux x86-64**
-```
 
 [https://github.com/victormeloasm/frogpwd/releases/download/v1.0/frogpwd-linux-x86_64.zip](https://github.com/victormeloasm/frogpwd/releases/download/v1.0/frogpwd-linux-x86_64.zip)
 
-````
+---
 
-### Install
+## 🚀 Installation (Recommended)
+
+The release archive includes:
+
+* `frogpwd` (binary)
+* `install.sh` (installer)
+
+The installer automatically:
+
+* extracts the binary if needed
+* installs it into your PATH
+* supports system-wide or user-only install
+
+### Step-by-step
+
 ```bash
+wget https://github.com/victormeloasm/frogpwd/releases/download/v1.0/frogpwd-linux-x86_64.zip
 unzip frogpwd-linux-x86_64.zip
-chmod +x frogpwd
-````
-
-(Optional) Move to PATH:
-
-```bash
-sudo install -m 0755 frogpwd /usr/local/bin/frogpwd
+chmod +x install.sh
+./install.sh
 ```
 
-Test:
+You will be prompted to choose:
+
+```
+1) System-wide (/usr/local/bin)  [requires sudo]
+2) User-only   (~/.local/bin)    [no sudo]
+```
+
+After installation:
 
 ```bash
 frogpwd 24
 ```
+
+---
+
+## 🧠 Manual Installation (Optional)
+
+If you prefer to install manually:
+
+```bash
+unzip frogpwd-linux-x86_64.zip
+chmod +x frogpwd
+sudo install -m 0755 frogpwd /usr/local/bin/frogpwd
+```
+
+Or user-only:
+
+```bash
+mkdir -p ~/.local/bin
+install -m 0755 frogpwd ~/.local/bin/frogpwd
+```
+
+Make sure `~/.local/bin` is in your PATH:
+
+```bash
+export PATH="$HOME/.local/bin:$PATH"
+```
+
+(Add this line to `~/.bashrc` or `~/.zshrc`.)
 
 ---
 
@@ -78,24 +124,24 @@ frogpwd --url --copy 24
 frogpwd --copy --nosym 32
 ```
 
+Options may be provided in **any order**.
+
 ---
 
 ## ⚙️ Options
 
-| Option          | Description                            |
-| --------------- | -------------------------------------- |
-| `--nosym`       | Use only A–Z a–z 0–9                   |
-| `--url`         | URL-safe charset (A–Z a–z 0–9 `-` `_`) |
-| `--copy`        | Copy password to clipboard             |
-| `-h` / `--help` | Show help                              |
-
-Options may be provided in **any order**.
+| Option         | Description                            |
+| -------------- | -------------------------------------- |
+| `--nosym`      | Use only A–Z a–z 0–9                   |
+| `--url`        | URL-safe charset (A–Z a–z 0–9 `-` `_`) |
+| `--copy`       | Copy password to clipboard             |
+| `-h`, `--help` | Show help                              |
 
 ---
 
 ## 📋 Clipboard Support
 
-`frogpwd --copy` pipes the generated password directly to your system clipboard.
+When using `--copy`, the password is piped directly to your clipboard.
 
 ### Wayland
 
@@ -127,7 +173,7 @@ frogpwd 24 --nosym --copy
 xclip -o -selection clipboard
 ```
 
-If neither tool is installed, `--copy` will fail gracefully.
+If neither tool is available, `--copy` fails gracefully.
 
 ---
 
@@ -171,6 +217,7 @@ chmod +x frogpwd
 ```text
 frogpwd/
 ├── frogpwd.asm
+├── install.sh
 ├── bin/
 │   └── frogpwd
 ├── assets/
@@ -196,3 +243,4 @@ Use at your own risk. No warranty is provided.
 Built with **FASM**, Linux syscalls, and love for low-level software.
 
 **Libertas Per Croack.** 🐸✨
+
