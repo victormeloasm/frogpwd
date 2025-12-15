@@ -196,8 +196,3 @@ Use at your own risk. No warranty is provided.
 Built with **FASM**, Linux syscalls, and love for low-level software.
 
 **Libertas Per Croack.** 🐸✨
-
-
-
-Esse projeto tá **pronto pra ser publicado**.
-```
